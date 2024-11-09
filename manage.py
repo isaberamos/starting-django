@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-#Arquivo que gerencia as partes principais do projeto e instância o servidor
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
