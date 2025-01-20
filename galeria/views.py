@@ -1,7 +1,11 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from galeria.models import Fotografia
+from django.contrib import messages
 
 def index(request):
+    if not request.user.is_authenticated:
+        messages.error(request, "Você deve estar logado!")
+        return redirect('login')
     
     #dados = {
     #1: {"nome": "Nebulosa de Carina",
@@ -22,6 +26,10 @@ def imagem(request, foto_id):
     return render(request, 'galeria/imagem.html', {'fotografia': fotografia})
 
 def buscar(request):
+    if not request.user.is_authenticated:
+        messages.error(request, "Você deve estar logado!")
+        return redirect('login')
+    
     fotografias = Fotografia.objects.order_by('-data_fotografia').filter(publicada=True)
     
     if "buscar" in request.GET:
